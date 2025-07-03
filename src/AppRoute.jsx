@@ -5,6 +5,8 @@ import BuyPlan from "./dashboard/BuyPlan";
 import UserSettings from "./dashboard/UserSettings";
 import TransactionHistory from "./dashboard/TransactionHistory";
 import ScrollToTop from "./utils/ScrollToTop";
+import Logout from "./dashboard/Logout";
+import Login from "./dashboard/Login";
 
 
 // import StatusByProcessChart from "./admindashboad/StatusByProcessChart";
@@ -43,6 +45,8 @@ export default function AppRoutes() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard/buy-plan" element={<BuyPlan />} />
           <Route path="/dashboard/setting" element={<UserSettings />} />
+          <Route path="/dashboard/logout" element={<Logout />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard/transaction-history"
             element={<TransactionHistory />}
