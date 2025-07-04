@@ -5,12 +5,7 @@ import DashboardHeader from "./components/DashboardHeader";
 import { MdSpaceDashboard, MdEmail } from "react-icons/md";
 import { FiShare2, FiKey, FiCamera } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import {
-  FaUser,
-  FaHome,
-  FaGlobe,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaUser, FaHome, FaGlobe, FaMapMarkerAlt } from "react-icons/fa";
 import { BsTelephoneFill } from "react-icons/bs";
 import { IoMdBusiness } from "react-icons/io";
 import { BiSolidMap } from "react-icons/bi";
@@ -60,7 +55,7 @@ export default function UserSettings() {
   };
 
   return (
-    <div className="flex min-h-screen bg-black text-white ">
+    <div className="flex flex-col md:flex-row min-h-screen bg-black text-white">
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -72,12 +67,12 @@ export default function UserSettings() {
           <div className="min-h-screen bg-black p-2 sm:p-6">
             {/* Tabs Section */}
             <div className="w-full bg-black rounded-xl px-4 py-3 mb-6">
-              <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
+              <div className="flex items-center gap-4 sm:gap-8 overflow-x-auto scrollbar-hide">
                 {tabs.map((tab) => (
                   <button
                     key={tab.label}
                     onClick={() => setActiveTab(tab.label)}
-                    className={`relative flex items-center gap-2 py-2 text-2xl font-bold transition tracking-wide whitespace-nowrap ${
+                    className={`relative flex items-center gap-2 py-2 text-base sm:text-xl md:text-2xl font-bold transition tracking-wide whitespace-nowrap ${
                       activeTab === tab.label
                         ? "bg-gradient-to-b from-yellow-900 via-yellow-300 to-yellow-900 bg-clip-text text-transparent"
                         : "text-gray-400"
@@ -87,13 +82,11 @@ export default function UserSettings() {
                       <img
                         src={StarIcon}
                         alt="star"
-                        className="w-6 h-6 object-contain"
+                        className="w-5 h-5 sm:w-6 sm:h-6 object-contain"
                       />
                     )}
-                    <span className="text-2xl">{tab.icon}</span>
+                    <span className="text-lg sm:text-xl">{tab.icon}</span>
                     <span>{tab.label}</span>
-
-                    {/* Only underline under "General" */}
                     {tab.label === "General" && activeTab === "General" && (
                       <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-yellow-800 via-yellow-300 to-yellow-800 rounded-full" />
                     )}
@@ -104,9 +97,8 @@ export default function UserSettings() {
 
             {/* General Section */}
             {activeTab === "General" && (
-              <div className="w-full bg-black p-6 rounded-xl">
+              <div className="w-full bg-black p-4 sm:p-6 rounded-xl">
                 <div className="flex flex-col lg:flex-row gap-6">
-                  
                   {/* Profile Card */}
                   <div className="w-full lg:max-w-xs text-center bg-[#121117] p-6 rounded-xl border border-[#29272e]">
                     <label htmlFor="photo-upload" className="block cursor-pointer">
@@ -148,7 +140,7 @@ export default function UserSettings() {
                   </div>
 
                   {/* Input Form */}
-                  <div className="flex-1 bg-[#121117] p-6 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-4 border border-[#29272e]">
+                  <div className="flex-1 bg-[#121117] p-4 sm:p-6 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-4 border border-[#29272e]">
                     {[
                       { name: "name", placeholder: "Name", icon: <FaUser /> },
                       { name: "email", placeholder: "Email", icon: <MdEmail /> },

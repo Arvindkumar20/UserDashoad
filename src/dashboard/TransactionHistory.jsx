@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaSearch, FaDownload } from "react-icons/fa";
+import { FaSearch, FaDownload, FaEllipsisV } from "react-icons/fa";
 import Sidebar from "./components/Sidebar";
 import DashboardHeader from "./components/DashboardHeader";
 
@@ -15,7 +15,7 @@ const dummyData = [
     status: "Active",
   },
   {
-    id: 4567,
+    id: 4568,
     name: "Lucien Obrien",
     email: "ashlynn.ohara62@gmail.com",
     amount: "$1900",
@@ -25,7 +25,7 @@ const dummyData = [
     status: "Pending",
   },
   {
-    id: 4567,
+    id: 4569,
     name: "Deja Brady",
     email: "milo.farrell@hotmail.com",
     amount: "$1200",
@@ -35,7 +35,7 @@ const dummyData = [
     status: "Banned",
   },
   {
-    id: 4567,
+    id: 4570,
     name: "Harrison Stein",
     email: "violet.strake86@yahoo.com",
     amount: "$500",
@@ -45,7 +45,7 @@ const dummyData = [
     status: "Rejected",
   },
   {
-    id: 4567,
+    id: 4571,
     name: "Reece Chung",
     email: "letha.lubowitz24@yahoo.com",
     amount: "$1600",
@@ -58,163 +58,169 @@ const dummyData = [
 
 export default function TransactionHistory() {
   const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState(dummyData);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleSearch = (e) => {
-    const val = e.target.value;
-    setSearch(val);
-    setFiltered(
-      dummyData.filter((item) =>
-        item.name.toLowerCase().includes(val.toLowerCase())
-      )
-    );
-  };
+  const filtered = dummyData.filter((item) => {
+    const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
+    const matchesFilter = activeFilter === "All" || item.status === activeFilter;
+    return matchesSearch && matchesFilter;
+  });
+
+  const statusFilters = ["All", "Active", "Pending", "Banned", "Rejected"];
 
   return (
     <div className="flex min-h-screen bg-[#0D0F1C] text-white">
-      <div className="hidden md:block">
-        <Sidebar />
+      <div className={`fixed inset-0 z-40 md:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
+        <div className="relative flex flex-col w-full max-w-xs h-full bg-gray-900">
+          <Sidebar onClose={() => setSidebarOpen(false)} />
+        </div>
       </div>
 
-      <div className="flex-1 flex flex-col">
-        <DashboardHeader />
+      <div className="hidden md:flex md:flex-shrink-0">
+        <div className="flex flex-col w-64">
+          <Sidebar />
+        </div>
+      </div>
 
-        <main className="p-6 bg-black min-h-screen">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
-            <h2 className="text-xl font-semibold">Transaction History</h2>
-            <button className="bg-[#121117] hover:bg-[#ffffff1f] text-white font-medium px-4 py-2 rounded border border-[#ffffff22]">
-              + Add Payment
-            </button>
-          </div>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
 
-          <div className="bg-[#121117] rounded-xl shadow-md p-6 border border-[#1c1c24]">
-            <div className="flex gap-2 flex-wrap mb-4 text-sm">
-              {["All", "Active", "Pending", "Banner", "Rejected"].map(
-                (label, idx) => (
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-black">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">Transaction History</h2>
+              <button className="bg-[#121117] hover:bg-[#ffffff1f] text-white text-sm sm:text-base font-medium px-3 sm:px-4 py-2 rounded border border-[#ffffff22] w-full sm:w-auto">
+                + Add Payment
+              </button>
+            </div>
+
+            <div className="bg-[#121117] rounded-xl shadow-md p-4 sm:p-6 border border-[#1c1c24]">
+              <div className="flex gap-2 flex-wrap mb-4 text-xs sm:text-sm">
+                {statusFilters.map((label) => (
                   <button
-                    key={idx}
-                    className="bg-[#1E1D24] px-4 py-1 rounded text-gray-300 flex items-center gap-2"
+                    key={label}
+                    onClick={() => setActiveFilter(label)}
+                    className={`px-3 sm:px-4 py-1 rounded flex items-center gap-2 ${
+                      activeFilter === label ? "bg-[#d1bf5a] text-black" : "bg-[#1E1D24] text-gray-300"
+                    }`}
                   >
                     {label}
                     <span className="bg-[#26242f] px-2 py-0.5 rounded-full text-xs">
-                      {Math.floor(Math.random() * 20)}
+                      {dummyData.filter((item) => label === "All" || item.status === label).length}
                     </span>
                   </button>
-                )
-              )}
-            </div>
-
-            <div className="flex flex-col md:flex-row flex-wrap items-center gap-4 mb-3">
-              <div className="relative w-full md:w-[600px]">
-                <input
-                  value={search}
-                  onChange={handleSearch}
-                  placeholder="Search Plan Name"
-                  className="bg-[#1e1d24] text-white pl-10 pr-4 py-3 rounded w-full border border-[#2c2a33]"
-                />
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                ))}
               </div>
-              <div className="flex gap-4 w-full md:w-auto justify-end ml-auto">
-                <button className="bg-[#1e1d24] px-5 py-3 rounded border border-[#2c2a33] text-white text-sm flex items-center gap-2 w-full md:w-auto">
-                  <FaDownload className="text-base" />
-                  Download Excel
-                </button>
-                <select className="bg-[#1e1d24] px-5 py-3 rounded border border-[#2c2a33] text-sm text-white w-full md:w-auto">
-                  <option>Show 10</option>
-                  <option>Show 20</option>
-                </select>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+                <div className="relative w-full">
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search Plan Name"
+                    className="bg-[#1e1d24] text-white text-sm pl-9 pr-4 py-2 sm:py-3 rounded w-full border border-[#2c2a33]"
+                  />
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+                </div>
+                <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+                  <button className="bg-[#1e1d24] px-3 sm:px-4 py-2 rounded border border-[#2c2a33] text-white text-xs sm:text-sm flex items-center gap-2 w-full sm:w-auto">
+                    <FaDownload className="text-xs sm:text-sm" />
+                    <span className="hidden xs:inline">Download Excel</span>
+                  </button>
+                  <select className="bg-[#1e1d24] px-3 sm:px-4 py-2 rounded border border-[#2c2a33] text-xs sm:text-sm text-white w-full sm:w-auto">
+                    <option>Show 10</option>
+                    <option>Show 20</option>
+                  </select>
+                </div>
               </div>
-            </div>
 
-            <div className="text-sm text-gray-400 mb-3 flex items-center gap-2 flex-wrap">
-              <span>Status:</span>
-              <span className="bg-[#26242f] px-3 py-1 rounded-full">Keyword</span>
-              <span>Role:</span>
-              <span className="bg-[#26242f] px-3 py-1 rounded-full">Keyword</span>
-              <span className="bg-[#26242f] px-3 py-1 rounded-full">Keyword</span>
-              <span className="text-red-400 cursor-pointer ml-2">🗑 Clear</span>
-            </div>
+              <p className="text-gray-500 text-xs sm:text-sm mb-4">
+                {filtered.length} results found
+              </p>
 
-            <p className="text-gray-500 text-sm mb-4">
-              {filtered.length} results found
-            </p>
-
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm text-left">
-                <thead className="bg-[#1E1D24] text-gray-400">
-                  <tr>
-                    <th className="px-4 py-2"><input type="checkbox" /></th>
-                    <th className="px-4 py-2">#</th>
-                    <th className="px-4 py-2">Name</th>
-                    <th className="px-4 py-2">Amount</th>
-                    <th className="px-4 py-2">Payment Method</th>
-                    <th className="px-4 py-2">Date Created</th>
-                    <th className="px-4 py-2">Action</th>
-                    <th className="px-4 py-2">Status</th>
-                    <th className="px-4 py-2">Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((row, i) => (
-                    <tr
-                      key={i}
-                      className="border-b border-[#26242f] hover:bg-[#1a1a20]"
-                    >
-                      <td className="px-4 py-3">
-                        <input type="checkbox" />
-                      </td>
-                      <td className="px-4 py-3">#{row.id}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={`https://i.pravatar.cc/32?img=${i + 1}`}
-                            alt="avatar"
-                            className="w-8 h-8 rounded-full"
-                          />
-                          <div>
-                            <p>{row.name}</p>
-                            <p className="text-xs text-gray-500">
-                              {row.email}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">{row.amount}</td>
-                      <td className="px-4 py-3">{row.method}</td>
-                      <td className="px-4 py-3">{row.created}</td>
-                      <td className="px-4 py-3">{row.action}</td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`px-2 py-1 rounded text-xs font-medium ${
-                            row.status === "Active"
-                              ? "bg-green-600 text-white"
-                              : row.status === "Pending"
-                              ? "bg-yellow-400 text-black"
-                              : row.status === "Banned"
-                              ? "bg-red-600 text-white"
-                              : "bg-gray-600 text-white"
-                          }`}
-                        >
-                          {row.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 relative group">
-                        <span className="text-white text-lg cursor-pointer">
-                          ✏️
-                        </span>
-                        <div className="absolute top-[-30px] right-0 text-xs bg-gray-700 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
-                          Quick edit
-                        </div>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-xs sm:text-sm text-left">
+                  <thead className="bg-[#1E1D24] text-gray-400">
+                    <tr>
+                      <th className="px-2 sm:px-4 py-2"><input type="checkbox" className="w-3 h-3 sm:w-4 sm:h-4" /></th>
+                      <th className="px-2 sm:px-4 py-2">#</th>
+                      <th className="px-2 sm:px-4 py-2">Name</th>
+                      <th className="px-2 sm:px-4 py-2 hidden sm:table-cell">Amount</th>
+                      <th className="px-2 sm:px-4 py-2 hidden md:table-cell">Method</th>
+                      <th className="px-2 sm:px-4 py-2 hidden lg:table-cell">Date</th>
+                      <th className="px-2 sm:px-4 py-2 hidden xl:table-cell">Action</th>
+                      <th className="px-2 sm:px-4 py-2">Status</th>
+                      <th className="px-2 sm:px-4 py-2">Edit</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {filtered.map((row, i) => (
+                      <tr
+                        key={row.id}
+                        className="border-b border-[#26242f] hover:bg-[#1a1a20]"
+                      >
+                        <td className="px-2 sm:px-4 py-3">
+                          <input type="checkbox" className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </td>
+                        <td className="px-2 sm:px-4 py-3">#{row.id}</td>
+                        <td className="px-2 sm:px-4 py-3">
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={`https://i.pravatar.cc/32?img=${i + 1}`}
+                              alt="avatar"
+                              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
+                            />
+                            <div>
+                              <p className="line-clamp-1">{row.name}</p>
+                              <p className="text-xs text-gray-500 hidden sm:block">
+                                {row.email}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-2 sm:px-4 py-3 hidden sm:table-cell">{row.amount}</td>
+                        <td className="px-2 sm:px-4 py-3 hidden md:table-cell">{row.method}</td>
+                        <td className="px-2 sm:px-4 py-3 hidden lg:table-cell">{row.created}</td>
+                        <td className="px-2 sm:px-4 py-3 hidden xl:table-cell">{row.action}</td>
+                        <td className="px-2 sm:px-4 py-3">
+                          <span
+                            className={`px-2 py-1 rounded text-xs font-medium ${
+                              row.status === "Active"
+                                ? "bg-green-600 text-white"
+                                : row.status === "Pending"
+                                ? "bg-yellow-400 text-black"
+                                : row.status === "Banned"
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-600 text-white"
+                            }`}
+                          >
+                            {row.status}
+                          </span>
+                        </td>
+                        <td className="px-2 sm:px-4 py-3 relative group">
+                          <button className="text-white text-sm sm:text-base">
+                            <FaEllipsisV />
+                          </button>
+                          <div className="absolute right-0 top-full mt-1 z-10 text-xs bg-gray-700 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition shadow-lg">
+                            Quick edit
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            <div className="flex justify-between items-center mt-6 text-sm text-gray-500">
-              <p>Rows per page: 5</p>
-              <p>6–10 of 11</p>
+              <div className="flex flex-col sm:flex-row justify-between items-center mt-4 sm:mt-6 gap-3 text-xs sm:text-sm text-gray-500">
+                <p>Rows per page: 5</p>
+                <div className="flex items-center gap-2">
+                  <button className="px-2 sm:px-3 py-1 rounded border border-[#2c2a33]">Previous</button>
+                  <span className="px-2 sm:px-3 py-1 bg-[#1e1d24] rounded">1</span>
+                  <button className="px-2 sm:px-3 py-1 rounded border border-[#2c2a33]">Next</button>
+                </div>
+              </div>
             </div>
           </div>
         </main>
