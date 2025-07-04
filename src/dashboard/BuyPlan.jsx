@@ -7,7 +7,7 @@ export default function BuyPlan() {
   const [paymentMethod, setPaymentMethod] = useState(null);
 
   return (
-    <div className="flex min-h-screen bg-black flex-col md:flex-row">
+    <div className="flex min-h-screen bg-black flex-col md:flex-row overflow-x-hidden">
       {/* Sidebar */}
       <div className="hidden md:block">
         <Sidebar />
@@ -75,9 +75,19 @@ export default function BuyPlan() {
                   <input id="upload" type="file" className="hidden" />
                 </label>
 
-                <button className="w-full bg-gradient-to-l from-[#452e06] via-[#d1bf5a] via-50% to-[#452e06] text-black px-6 py-3 text-sm sm:text-base rounded-full shadow-md hover:brightness-110 transition-all duration-300">
-                  PROCEED TO PAYMENT
-                </button>
+                {/* Updated Button */}
+                <div className="w-full flex justify-start">
+                  <div className="p-[1.5px] rounded-full bg-[linear-gradient(90deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)] shadow-[0_0_10px_rgba(254,214,0,0.2)] w-[180px]">
+                    <button
+                      className="w-full h-[40px] text-xs sm:text-sm rounded-full font-semibold
+                        bg-black text-white hover:text-black
+                        hover:bg-[linear-gradient(90deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
+                        transition-all duration-300"
+                    >
+                      PROCEED TO PAYMENT
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 

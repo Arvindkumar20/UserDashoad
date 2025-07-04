@@ -4,7 +4,6 @@ import { BiSolidCrown } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export default function PricingCard({ plan }) {
-  // Choose icon based on plan title
   const getIcon = () => {
     if (plan.title === "Pro Plan") {
       return <BiSolidCrown className="text-xl sm:text-2xl text-yellow-500" />;
@@ -17,7 +16,8 @@ export default function PricingCard({ plan }) {
 
   return (
     <div
-      className={`group bg-[#121117] w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[380px] md:max-w-[400px] lg:max-w-[420px] xl:max-w-[450px]
+      className={`group bg-[#121117] overflow-hidden
+        w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[380px] md:max-w-[400px] lg:max-w-[420px] xl:max-w-[450px]
         border border-black hover:border-yellow-500 rounded-2xl 
         p-5 xs:p-6 sm:p-7 md:p-8 shadow-lg flex flex-col justify-between transition-all duration-300
         ${plan.highlight ? "ring-1 ring-yellow-500 scale-[1.02]" : ""}`}
@@ -41,21 +41,24 @@ export default function PricingCard({ plan }) {
         {plan.description}
       </p>
 
-      {/* Buy Now Button */}
-      <Link
-        to="/dashboard/buy-plan"
-        className="w-full h-[42px] xs:h-[48px] text-xs xs:text-sm font-bold rounded-full mb-4 sm:mb-6
-        text-white border border-l-yellow-900 border-r-yellow-900 border-b-yellow-500 border-t-yellow-950
-        bg-transparent hover:text-black
-        hover:bg-[linear-gradient(86.31deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
-        shadow-[0_0_6px_#FFD70066]
-        transition-all duration-300 flex items-center justify-center text-center"
-      >
-        Buy Now
-      </Link>
+      {/* Buy Now Button (Smaller + Responsive) */}
+      <div className="mb-4 sm:mb-6">
+        <div className="p-[1.5px] rounded-full bg-[linear-gradient(86.31deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)] shadow-[0_0_5px_#FFD70066] w-[140px] sm:w-[160px] mx-auto">
+          <Link
+            to="/dashboard/buy-plan"
+            className="h-[36px] text-[11px] xs:text-xs font-semibold rounded-full
+              bg-black text-white
+              hover:bg-[linear-gradient(86.31deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
+              hover:text-black
+              transition-all duration-300 flex items-center justify-center text-center"
+          >
+            Buy Now
+          </Link>
+        </div>
+      </div>
 
-      {/* Features */}
-      <ul className="space-y-2 xs:space-y-3 text-xs xs:text-sm text-gray-300">
+      {/* Features List */}
+      <ul className="space-y-2 xs:space-y-3 text-xs xs:text-sm text-gray-300 overflow-hidden">
         {plan.features.map((feature, i) => (
           <li key={i} className="flex items-start gap-2 xs:gap-3">
             <div className="w-4 h-4 xs:w-5 xs:h-5 rounded-full bg-gray-300 group-hover:bg-gradient-to-t group-hover:from-[#452e06] group-hover:via-[#d1bf5a] group-hover:to-[#452e06] flex items-center justify-center transition-all duration-300">
