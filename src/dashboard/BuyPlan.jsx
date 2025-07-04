@@ -63,7 +63,8 @@ export default function BuyPlan() {
                   </div>
                 </div>
 
-                <label
+              <div className="mt-10 flex justify-center">
+                  <label
                   htmlFor="upload"
                   className="bg-[#1e1d24] border border-gray-700 p-4 rounded text-center cursor-pointer"
                 >
@@ -74,6 +75,7 @@ export default function BuyPlan() {
                   </p>
                   <input id="upload" type="file" className="hidden" />
                 </label>
+              </div>
 
                 {/* Updated Button */}
                 <div className="w-full flex justify-start">

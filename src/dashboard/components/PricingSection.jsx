@@ -6,7 +6,7 @@ export default function PricingSection({ clicked, setClicked, text, setEText }) 
   const isActive = (type) => clicked === type;
 
   return (
-    <div className="w-full px-4 xs:px-6 sm:px-8 py-8 sm:py-12 lg:py-16 text-white bg-black">
+    <div className="w-full  py-8 sm:py-12 lg:py-16 text-white bg-black">
       {/* Section Title (optional) */}
      
 
@@ -36,11 +36,11 @@ export default function PricingSection({ clicked, setClicked, text, setEText }) 
       {/* Pricing Cards Container */}
       <div className="relative">
         {/* Scrollable Cards */}
-        <div className="flex flex-nowrap gap-4 sm:gap-6 lg:gap-8 pb-4 sm:pb-6 overflow-x-auto scrollbar-hide px-1">
+        <div className="flex flex-nowrap gap-4 sm:gap-4 lg:gap-4 pb-4 sm:pb-6 overflow-x-auto scrollbar-hide px-1 hide-scrollbar">
           {pricingPlans[clicked]?.map((plan, i) => (
             <div 
               key={i} 
-              className="flex-shrink-0 w-[280px] xs:w-[300px] sm:w-[320px] md:w-[340px] lg:w-[360px]"
+              className="flex-shrink-0 w-[280px] xs:w-[300px] sm:w-[300px] md:w-[300px] lg:w-[300px]"
             >
               <PricingCard 
                 plan={plan} 
