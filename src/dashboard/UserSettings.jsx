@@ -227,6 +227,6 @@ export default function UserSettings() {
           </div>
         </main>
       </div>
-    </div>
-  );
+    </div>
+  );
 }

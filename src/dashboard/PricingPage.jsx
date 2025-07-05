@@ -14,6 +14,6 @@ export default function PricingPage({clicked,setClicked}) {
         text={eText}
         setEText={setEText}
       />
-    </div>
-  );
+    </div>
+  );
 }

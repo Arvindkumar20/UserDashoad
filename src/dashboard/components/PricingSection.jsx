@@ -69,6 +69,6 @@ export default function PricingSection({ clicked, setClicked, text, setEText }) 
           View All Plans
         </button>
       </div> */}
-    </div>
-  );
+    </div>
+  );
 }
