@@ -5,27 +5,52 @@ import moneyBag from "../assets/dashboardhome/moneyBag.png";
 
 export default function BuyPlan() {
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-black flex-col md:flex-row overflow-x-hidden">
-      {/* Sidebar */}
-      <div className="hidden md:block">
-        <Sidebar />
+    <div className="flex min-h-screen bg-black text-white">
+      {/* Mobile Sidebar */}
+      <div className={`fixed inset-0 z-40 md:hidden ${sidebarOpen ? "block" : "hidden"}`}>
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-75"
+          onClick={() => setSidebarOpen(false)}
+        />
+        <div className="relative flex flex-col w-full max-w-xs h-full bg-gray-900">
+          <Sidebar
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+            mobileOpen={sidebarOpen}
+            setMobileOpen={setSidebarOpen}
+          />
+        </div>
+      </div>
+
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex md:flex-shrink-0">
+        <div className={`flex flex-col ${isCollapsed ? "w-20" : "w-64"}`}>
+          <Sidebar
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+            mobileOpen={sidebarOpen}
+            setMobileOpen={setSidebarOpen}
+          />
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        <DashboardHeader />
+      <div
+        className={`flex-1 flex flex-col transition-all duration-300 ease-in-out`}
+      >
+        <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
         <main className="p-4">
-          <div className="flex flex-col lg:flex-row gap-6 text-white">
-            {/* Left: Buy New Plan */}
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Left Section: Buy Plan */}
             <div className="w-full lg:flex-1 space-y-6 bg-[#121117] p-6 rounded-md">
               <h2 className="text-2xl font-bold bg-gradient-to-b from-yellow-900 via-yellow-300 to-yellow-900 bg-clip-text text-transparent">
                 BUY NEW PLAN
               </h2>
-              <p className="text-sm text-gray-400">
-                Choose a plan that suits your trading needs.
-              </p>
+              <p className="text-sm text-gray-400">Choose a plan that suits your trading needs.</p>
 
               <div className="bg-[#121117] border border-gray-800 p-6 rounded-md space-y-6">
                 <div className="space-y-2">
@@ -47,44 +72,43 @@ export default function BuyPlan() {
                     Choose Payment Method from the list below *
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-[#121117] p-3 rounded-md">
-                    {["ETH ERC20", "USDT TRC20", "Card Payment", "Bank Transfer", "BTC"].map((method) => (
-                      <div
-                        key={method}
-                        className="bg-[#121117] border border-gray-700 rounded-md p-3 flex items-center space-x-2"
-                      >
-                        <input
-                          type="checkbox"
-                          value={method}
-                          className="appearance-none w-4 h-4 border border-gray-700 rounded bg-[#26242f] checked:bg-yellow-400 checked:border-yellow-400 focus:ring-0"
-                        />
-                        <span className="text-gray-400">{method}</span>
-                      </div>
-                    ))}
+                    {["ETH ERC20", "USDT TRC20", "Card Payment", "Bank Transfer", "BTC"].map(
+                      (method) => (
+                        <div
+                          key={method}
+                          className="bg-[#121117] border border-gray-700 rounded-md p-3 flex items-center space-x-2"
+                        >
+                          <input
+                            type="checkbox"
+                            value={method}
+                            className="appearance-none w-4 h-4 border border-gray-700 rounded bg-[#26242f] checked:bg-yellow-400 checked:border-yellow-400 focus:ring-0"
+                          />
+                          <span className="text-gray-400">{method}</span>
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
 
-              <div className="mt-10 flex justify-center">
+                <div className="mt-10 flex justify-center">
                   <label
-                  htmlFor="upload"
-                  className="bg-[#1e1d24] border border-gray-700 p-4 rounded text-center cursor-pointer"
-                >
-                  <div className="text-yellow-400 text-2xl">📁</div>
-                  <p className="text-yellow-400 text-sm">Click to upload</p>
-                  <p className="text-gray-400 text-xs">
-                    or drag and drop (max. 800x400px)
-                  </p>
-                  <input id="upload" type="file" className="hidden" />
-                </label>
-              </div>
+                    htmlFor="upload"
+                    className="bg-[#1e1d24] border border-gray-700 p-4 rounded text-center cursor-pointer"
+                  >
+                    <div className="text-yellow-400 text-2xl">📁</div>
+                    <p className="text-yellow-400 text-sm">Click to upload</p>
+                    <p className="text-gray-400 text-xs">or drag and drop (max. 800x400px)</p>
+                    <input id="upload" type="file" className="hidden" />
+                  </label>
+                </div>
 
-                {/* Updated Button */}
                 <div className="w-full flex justify-start">
                   <div className="p-[1.5px] rounded-full bg-[linear-gradient(90deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)] shadow-[0_0_10px_rgba(254,214,0,0.2)] w-[180px]">
                     <button
                       className="w-full h-[40px] text-xs sm:text-sm rounded-full font-semibold
-                        bg-black text-white hover:text-black
-                        hover:bg-[linear-gradient(90deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
-                        transition-all duration-300"
+                      bg-black text-white hover:text-black
+                      hover:bg-[linear-gradient(90deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
+                      transition-all duration-300"
                     >
                       PROCEED TO PAYMENT
                     </button>
@@ -93,7 +117,7 @@ export default function BuyPlan() {
               </div>
             </div>
 
-            {/* Right: Current Plans */}
+            {/* Right Section: Current Plans */}
             <div className="w-full lg:w-1/2 space-y-4 bg-[#121117] p-6 rounded-md">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold bg-gradient-to-b from-yellow-900 via-yellow-300 to-yellow-900 bg-clip-text text-transparent">
@@ -112,15 +136,11 @@ export default function BuyPlan() {
                     <p className="text-3xl font-bold">
                       $199<span className="text-sm">/MONTHLY</span>
                     </p>
-                    <p className="text-xs text-gray-400">
-                      Purchase Date: 25-11-2024
-                    </p>
+                    <p className="text-xs text-gray-400">Purchase Date: 25-11-2024</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-green-500 text-center">Plan Active</p>
-                    <p className="text-xs text-gray-400 my-1">
-                      Purchase Date : 20/05/2003
-                    </p>
+                    <p className="text-xs text-gray-400 my-1">Purchase Date : 20/05/2003</p>
                     <p className="bg-gradient-to-l from-[#452e06] via-[#d1bf5a] via-50% to-[#452e06] text-black px-6 py-1 text-sm sm:text-base rounded-full shadow-md hover:brightness-110 transition-all duration-300">
                       Expires: 25-11-2025
                     </p>

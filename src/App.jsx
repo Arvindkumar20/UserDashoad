@@ -4,8 +4,10 @@ import AppRoute from "./AppRoute";
 export default function App() {
   return (
 
-    <Router>
+  
+      <Router>
       <AppRoute />
     </Router>
+   
   );
 }
