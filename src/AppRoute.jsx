@@ -38,7 +38,7 @@ export default function AppRoutes() {
       <ScrollToTop />
       <Suspense
         fallback={
-          <div className="text-center text-white py-10">Loading...</div>
+          <div className="text-center text-white py-10 ">Loading...</div>
         }
       >
         <Routes>
