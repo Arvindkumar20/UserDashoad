@@ -16,10 +16,10 @@ export default function PricingCard({ plan }) {
 
   return (
     <div
-      className={`group bg-[#121117] overflow-hidden
+      className={`group bg-[#121117] border border-black hover:border-yellow-500
+        rounded-2xl shadow-lg p-5 xs:p-6 sm:p-7 md:p-8
+        flex flex-col justify-between h-full transition-all duration-300
         w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[380px] md:max-w-[400px] lg:max-w-[420px] xl:max-w-[450px]
-        border border-black hover:border-yellow-500 rounded-2xl 
-        p-5 xs:p-6 sm:p-7 md:p-8 shadow-lg flex flex-col justify-between transition-all duration-300
         ${plan.highlight ? "ring-1 ring-yellow-500 scale-[1.02]" : ""}`}
     >
       {/* Plan Badge */}
@@ -41,7 +41,10 @@ export default function PricingCard({ plan }) {
         {plan.description}
       </p>
 
-      {/* Buy Now Button (Smaller + Responsive) */}
+      {/* Spacer to push features down */}
+      <div className="flex-1" />
+
+      {/* Buy Now Button */}
       <div className="mb-4 sm:mb-6">
         <div className="p-[1.5px] rounded-full bg-[linear-gradient(86.31deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)] shadow-[0_0_5px_#FFD70066] w-[140px] sm:w-[160px] mx-auto">
           <Link
@@ -49,16 +52,15 @@ export default function PricingCard({ plan }) {
             className="h-[36px] text-[11px] xs:text-xs font-semibold rounded-full
               bg-black text-white
               hover:bg-[linear-gradient(86.31deg,#281000_0%,#C0971C_25%,#FFE976_50.5%,#C0971C_74.5%,#281000_100%)]
-              hover:text-black
-              transition-all duration-300 flex items-center justify-center text-center"
+              hover:text-black transition-all duration-300 flex items-center justify-center text-center"
           >
             Buy Now
           </Link>
         </div>
       </div>
 
-      {/* Features List */}
-      <ul className="space-y-2 xs:space-y-3 text-xs xs:text-sm text-gray-300 overflow-hidden">
+      {/* Features */}
+      <ul className="space-y-2 xs:space-y-3 text-xs xs:text-sm text-gray-300">
         {plan.features.map((feature, i) => (
           <li key={i} className="flex items-start gap-2 xs:gap-3">
             <div className="w-4 h-4 xs:w-5 xs:h-5 rounded-full bg-gray-300 group-hover:bg-gradient-to-t group-hover:from-[#452e06] group-hover:via-[#d1bf5a] group-hover:to-[#452e06] flex items-center justify-center transition-all duration-300">
@@ -68,6 +70,6 @@ export default function PricingCard({ plan }) {
           </li>
         ))}
       </ul>
-    </div>
-  );
+    </div>
+  );
 }

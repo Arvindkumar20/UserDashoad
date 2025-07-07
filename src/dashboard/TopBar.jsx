@@ -72,4 +72,3 @@ const TopBar = () => {
 };
 
 export default TopBar;
-x
