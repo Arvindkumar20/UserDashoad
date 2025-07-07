@@ -2,20 +2,47 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import DashboardHeader from "./components/DashboardHeader";
 
-import { MdSpaceDashboard, MdEmail } from "react-icons/md";
-import { FiShare2, FiKey, FiCamera } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaUser, FaHome, FaGlobe, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { BsTelephoneFill } from "react-icons/bs";
-import { IoMdBusiness } from "react-icons/io";
-import { BiSolidMap } from "react-icons/bi";
-import { FaXTwitter } from "react-icons/fa6";
+import {
+  MdSpaceDashboard,
+  MdEmail
+} from "react-icons/md";
+import {
+  FiShare2,
+  FiKey,
+  FiCamera
+} from "react-icons/fi";
+import {
+  RiDeleteBin6Line
+} from "react-icons/ri";
+import {
+  FaUser,
+  FaHome,
+  FaGlobe,
+  FaMapMarkerAlt,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn
+} from "react-icons/fa";
+import {
+  BsTelephoneFill
+} from "react-icons/bs";
+import {
+  IoMdBusiness
+} from "react-icons/io";
+import {
+  BiSolidMap
+} from "react-icons/bi";
+import {
+  FaXTwitter
+} from "react-icons/fa6";
 
 import DefaultAvatar from "../assets/dashboard/starticon.png";
 import StarIcon from "../assets/dashboard/starticon.png";
 
 export default function UserSettings() {
   const [activeTab, setActiveTab] = useState("General");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "Jayvion Simon",
@@ -60,18 +87,45 @@ export default function UserSettings() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-black text-white overflow-hidden">
-      <div className="hidden md:block">
-        <Sidebar />
+    <div className="flex bg-black min-h-screen text-white overflow-hidden">
+      {/* Mobile Sidebar */}
+      <div className={`fixed inset-0 z-40 md:hidden ${sidebarOpen ? "block" : "hidden"}`}>
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-75"
+          onClick={() => setSidebarOpen(false)}
+        />
+        <div className="relative flex flex-col w-full max-w-xs h-full bg-gray-900">
+          <Sidebar
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+            mobileOpen={sidebarOpen}
+            setMobileOpen={setSidebarOpen}
+          />
+        </div>
       </div>
 
-      <div className="flex-1 flex flex-col">
-        <DashboardHeader />
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex md:flex-shrink-0">
+        <div className={`flex flex-col ${isCollapsed ? "w-20" : "w-64"}`}>
+          <Sidebar
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+            mobileOpen={sidebarOpen}
+            setMobileOpen={setSidebarOpen}
+          />
+        </div>
+      </div>
 
-        <main className="p-4 overflow-hidden">
-          <div className="min-h-screen bg-black p-2 sm:p-6">
+      {/* Main Content */}
+      <div
+        className={`flex-1 flex flex-col transition-all duration-300 ease-in-out`}
+      >
+        <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
+
+        <main className="p-4 overflow-x-hidden">
+          <div className="w-full px-2 sm:px-6">
             {/* Tabs */}
-            <div className="w-full bg-black rounded-xl px-4 py-3 mb-6">
+            <div className="bg-black rounded-xl px-4 py-3 mb-6">
               <div className="flex items-center gap-4 sm:gap-8 overflow-x-auto scrollbar-hide">
                 {tabs.map((tab) => (
                   <button
@@ -92,16 +146,14 @@ export default function UserSettings() {
                     )}
                     <span className="text-lg sm:text-xl">{tab.icon}</span>
                     <span>{tab.label}</span>
-                    {/* {tab.label === "General" && activeTab === "General" && (
-                      <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-yellow-800 via-yellow-300 to-yellow-800 rounded-full" />
-                    )} */}
                   </button>
                 ))}
               </div>
             </div>
-            {/* General Section */}
+
+            {/* General Tab */}
             {activeTab === "General" && (
-              <div className="w-full bg-black p-4 sm:p-6 rounded-xl">
+              <div className="w-full p-4 sm:p-6 rounded-xl bg-black">
                 <div className="flex flex-col lg:flex-row gap-6">
                   {/* Profile Card */}
                   <div className="w-full lg:max-w-xs text-center bg-[#121117] p-6 rounded-xl border border-[#29272e]">
@@ -143,7 +195,7 @@ export default function UserSettings() {
                     </button>
                   </div>
 
-                  {/* Input Form */}
+                  {/* Form Fields */}
                   <div className="flex-1 bg-[#121117] p-4 sm:p-6 rounded-xl grid grid-cols-1 sm:grid-cols-2 gap-4 border border-[#29272e]">
                     {[
                       { name: "name", placeholder: "Name", icon: <FaUser /> },
@@ -182,29 +234,25 @@ export default function UserSettings() {
               </div>
             )}
 
-            {/* Social Links Section */}
+            {/* Social Links Tab */}
             {activeTab === "Social links" && (
               <div className="w-full bg-[#121117] p-4 sm:p-6 rounded-xl border border-[#29272e] space-y-4">
                 {[
                   {
                     name: "facebook",
                     icon: <FaFacebookF className="text-blue-500" />,
-                    placeholder: "https://www.facebook.com/caitlyn.kerluke",
                   },
                   {
                     name: "instagram",
                     icon: <FaInstagram className="text-pink-500" />,
-                    placeholder: "https://www.instagram.com/caitlyn.kerluke",
                   },
                   {
                     name: "linkedin",
                     icon: <FaLinkedinIn className="text-blue-400" />,
-                    placeholder: "https://www.linkedin.com/caitlyn.kerluke",
                   },
                   {
                     name: "twitter",
                     icon: <FaXTwitter className="text-gray-400" />,
-                    placeholder: "https://www.twitter.com/caitlyn.kerluke",
                   },
                 ].map((item) => (
                   <div
@@ -217,7 +265,7 @@ export default function UserSettings() {
                       name={item.name}
                       value={formData[item.name]}
                       onChange={handleChange}
-                      placeholder={item.placeholder}
+                      placeholder={`Enter ${item.name} URL`}
                       className="bg-transparent text-sm sm:text-base text-white placeholder-gray-500 w-full focus:outline-none"
                     />
                   </div>
