@@ -10,26 +10,27 @@ export default function Dashboard() {
   const [clicked, setClicked] = useState("forex");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      // Auto-close sidebar when resizing to desktop if mobile
-      if (window.innerWidth >= 768 && sidebarOpen) {
-        setSidebarOpen(false);
-      }
+      const isNowMobile = window.innerWidth < 768;
+      setIsMobile(isNowMobile);
+      if (!isNowMobile) setSidebarOpen(false); // Close on desktop
     };
 
-    handleResize(); // Set initial value
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [sidebarOpen]);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className="flex w-full min-h-screen bg-black transition-all duration-300">
-      {/* Sidebar Component - Hidden on mobile when closed */}
-      <div className={`${sidebarOpen ? 'fixed inset-0 z-40' : 'hidden md:block'}`}>
+    <div className="flex w-full min-h-screen bg-black transition-all duration-300 relative">
+      {/* Sidebar (Fixed on mobile) */}
+      <div
+        className={`${
+          sidebarOpen ? "fixed inset-0 z-40" : "hidden"
+        } md:block md:relative`}
+      >
         <Sidebar
           isCollapsed={isCollapsed}
           setIsCollapsed={setIsCollapsed}
@@ -39,32 +40,33 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Overlay for mobile sidebar */}
-      {/* {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
-      )} */}
+      )}
 
-      {/* Main Content Layout */}
-      <div className={` flex flex-col transition-all duration-300 `}>
-        <DashboardHeader 
-          onMenuClick={() => setSidebarOpen(true)} 
-          isCollapsed={isCollapsed}
-          setIsCollapsed={setIsCollapsed}
-          sidebarOpen={sidebarOpen}
-        />
+      {/* Main Content Area */}
+   <div className="flex-1 w-full flex flex-col min-h-screen transition-all duration-300 px-2 sm:px-4 md:px-6 lg:px-8">
+  <DashboardHeader
+    onMenuClick={() => setSidebarOpen(true)}
+    isCollapsed={isCollapsed}
+    setIsCollapsed={setIsCollapsed}
+    sidebarOpen={sidebarOpen}
+  />
 
-        <main className="flex-1 p-2 xs:p-3 sm:p-4 md:p-3 lg:p-3 transition-all duration-300">
-          <div className="max-w-6xl mx-auto px-2 xs:px-3 sm:px-4 md:px-3 lg:px-3">
-            <WelcomeBanner />
-            <ButtonGroupSection clicked={clicked} setClicked={setClicked} />
-            <PricingPage clicked={clicked} setClicked={setClicked} />
-            <SupportSection />
-          </div>
-        </main>
-      </div>
+  <main className="flex-1 overflow-y-auto py-3 sm:py-4 md:py-5 lg:py-6 transition-all duration-300">
+    <div className="w-full sm:w-2xl md:w-2xl lg:w-4xl max-w-7xl mx-auto">
+      <WelcomeBanner />
+      <ButtonGroupSection clicked={clicked} setClicked={setClicked} />
+      <PricingPage clicked={clicked} setClicked={setClicked} />
+      <SupportSection />
+    </div>
+  </main>
+</div>
+
     </div>
   );
 }
