@@ -40,15 +40,15 @@ export default function Dashboard() {
       </div>
 
       {/* Overlay for mobile sidebar */}
-      {sidebarOpen && (
+      {/* {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
-      )}
+      )} */}
 
       {/* Main Content Layout */}
-      <div className={`flex-1 flex flex-col transition-all duration-300`}>
+      <div className={` flex flex-col transition-all duration-300 `}>
         <DashboardHeader 
           onMenuClick={() => setSidebarOpen(true)} 
           isCollapsed={isCollapsed}
@@ -56,8 +56,8 @@ export default function Dashboard() {
           sidebarOpen={sidebarOpen}
         />
 
-        <main className="flex-1 overflow-y-auto p-2 xs:p-3 sm:p-4 md:p-5 lg:p-6 transition-all duration-300">
-          <div className="max-w-6xl mx-auto px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6">
+        <main className="flex-1 p-2 xs:p-3 sm:p-4 md:p-3 lg:p-3 transition-all duration-300">
+          <div className="max-w-6xl mx-auto px-2 xs:px-3 sm:px-4 md:px-3 lg:px-3">
             <WelcomeBanner />
             <ButtonGroupSection clicked={clicked} setClicked={setClicked} />
             <PricingPage clicked={clicked} setClicked={setClicked} />
@@ -65,6 +65,6 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
-    </div>
-  );
+    </div>
+  );
 }

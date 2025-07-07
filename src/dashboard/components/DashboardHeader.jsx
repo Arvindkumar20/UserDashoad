@@ -13,7 +13,7 @@ export default function DashboardHeader({ onMenuClick }) {
       {/* Full Width Black Background */}
       <div className="w-full bg-black py-3 px-4 sm:py-4 sm:px-6 lg:px-8">
         {/* Centered Header Box */}
-        <header className="w-full max-w-[1100px] mx-auto bg-[#0d0c11] flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6 rounded-xl shadow-md z-50">
+        <header className="w-full max-w-[1140px] mx-auto bg-[#0d0c11] flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6 rounded-xl shadow-md z-50">
           {/* Left Side - Logo/Website Link and Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* Mobile Menu Button (hidden on md and up) */}

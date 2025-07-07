@@ -48,12 +48,12 @@ export default function Sidebar({
   
     <div className="relative my-2 mx-3 rounded-3xl">
       {/* Mobile Backdrop */}
-      {mobileOpen && (
+      {/* {mobileOpen && (
         <div
           className="fixed inset-0 z-40 sm:hidden"
           onClick={() => setMobileOpen(false)}
         />
-      )}
+      )} */}
 
       <aside
         className={`fixed sm:sticky top-0 left-0 h-screen border-2 border-[#1a1a1a] bg-[#0B0B0E] shadow-lg
