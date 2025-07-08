@@ -90,7 +90,7 @@ export default function TransactionHistory() {
 
       {/* Desktop Sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
-        <div className={`flex flex-col ${isCollapsed ? "w-20" : "w-64"}`}>
+        <div className={`flex flex-col ${isCollapsed ? "w-20" : "w-50"}`}>
           <Sidebar
             isCollapsed={isCollapsed}
             setIsCollapsed={setIsCollapsed}
