@@ -49,24 +49,23 @@ export default function Dashboard() {
       )}
 
       {/* Main Content Area */}
-   <div className="flex-1 w-full flex flex-col min-h-screen transition-all duration-300 px-2 sm:px-4 md:px-6 lg:px-8">
-  <DashboardHeader
-    onMenuClick={() => setSidebarOpen(true)}
-    isCollapsed={isCollapsed}
-    setIsCollapsed={setIsCollapsed}
-    sidebarOpen={sidebarOpen}
-  />
+      <div className="flex-1 w-full flex flex-col min-h-screen transition-all duration-300 px-2 sm:px-4 md:px-6 lg:px-8">
+        <DashboardHeader
+          onMenuClick={() => setSidebarOpen(true)}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+          sidebarOpen={sidebarOpen}
+        />
 
-  <main className="flex-1 overflow-y-auto py-3 sm:py-4 md:py-5 lg:py-6 transition-all duration-300">
-    <div className="w-full sm:w-2xl md:w-2xl lg:w-4xl max-w-7xl mx-auto">
-      <WelcomeBanner />
-      <ButtonGroupSection clicked={clicked} setClicked={setClicked} />
-      <PricingPage clicked={clicked} setClicked={setClicked} />
-      <SupportSection />
-    </div>
-  </main>
-</div>
-
+        <main className="flex-1 overflow-y-auto py-3 sm:py-4 md:py-5 lg:py-6 transition-all duration-300">
+          <div className="w-full sm:w-2xl md:w-2xl lg:w-4xl max-w-7xl mx-auto">
+            <WelcomeBanner />
+            <ButtonGroupSection clicked={clicked} setClicked={setClicked} />
+            <PricingPage clicked={clicked} setClicked={setClicked} />
+            <SupportSection />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

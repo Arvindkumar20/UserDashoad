@@ -128,7 +128,7 @@ export default function BuyPlan() {
                     <p className="text-3xl font-bold">
                       $199 <span className="text-sm">/MONTHLY</span>
                     </p>
-                    <p className="text-xs text-gray-400">Purchase Date: 25-11-2024</p>
+                    {/* <p className="text-xs text-gray-400">Purchase Date: 25-11-2024</p> */}
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-green-500 text-center">Plan Active</p>

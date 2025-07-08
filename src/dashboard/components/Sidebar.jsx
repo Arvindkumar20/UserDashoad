@@ -17,7 +17,7 @@ export default function Sidebar({
     { icon: <BiSolidDashboard size={20} />, label: "Dashboard", url: "/" },
     {
       icon: <FiRepeat size={20} />,
-      label: "Sync",
+      label: "Transaction",
       url: "/dashboard/transaction-history",
     },
     {

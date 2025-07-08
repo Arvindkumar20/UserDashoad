@@ -2,22 +2,10 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import DashboardHeader from "./components/DashboardHeader";
 
-import {
-  MdSpaceDashboard,
-  MdEmail
-} from "react-icons/md";
-import {
-  FiShare2,
-  FiKey,
-  FiCamera,
-  FiInfo
-} from "react-icons/fi";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FiShare2, FiKey, FiCamera, FiInfo } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 import DefaultAvatar from "../assets/dashboard/starticon.png";
@@ -139,10 +127,10 @@ export default function UserSettings() {
 
           {/* GENERAL TAB */}
           {activeTab === "General" && (
-            <div className="w-full p-4 sm:p-6 rounded-xl bg-[#121117]">
-              <div className="flex flex-col lg:flex-row gap-8">
-                {/* Avatar */}
-                <div className="w-full lg:max-w-xs text-center bg-[#121117] p-4 rounded-xl border border-[#29272e]">
+            <div className="w-full p-4 sm:p-6 rounded-xl bg-black">
+              <div className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8">
+                {/* Avatar Card */}
+                <div className="w-full lg:w-[32%] text-center bg-[#121117] p-4 rounded-xl border border-[#29272e]">
                   <label htmlFor="photo-upload" className="block cursor-pointer">
                     <div className="w-28 h-28 mx-auto rounded-full bg-[#26242f] border border-gray-500 flex items-center justify-center relative overflow-hidden">
                       <img
@@ -159,17 +147,21 @@ export default function UserSettings() {
                   <p className="text-xs text-gray-500 mt-3">
                     Allowed *.jpeg, *.jpg, *.png, *.gif <br /> Max size of 3.1 MB
                   </p>
-                  <button
-                    onClick={handleDeleteUser}
-                    className="bg-[#2a1212] hover:bg-red-700 mt-4 px-3 py-2 rounded text-[#637381] text-sm flex items-center justify-center gap-2"
-                  >
-                    <RiDeleteBin6Line /> Delete user
-                  </button>
+
+                  {/* Centered Button */}
+                  <div className="mt-4 flex justify-center">
+                    <button
+                      onClick={handleDeleteUser}
+                      className="bg-[#2a1212] hover:bg-red-700 px-4 py-2 rounded text-[#637381] text-sm flex items-center justify-center gap-2 w-full max-w-[200px]"
+                    >
+                      <RiDeleteBin6Line /> Delete user
+                    </button>
+                  </div>
                 </div>
 
-                {/* Form */}
-                <div className="w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {["name","email","phone","address","country","state","city","zip"].map((field) => (
+                {/* Form Card */}
+                <div className="w-full lg:w-[68%] bg-[#121117] p-4 rounded-xl grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {["name", "email", "phone", "address", "country", "state", "city", "zip"].map((field) => (
                     <div key={field} className="relative">
                       <span className="text-sm text-[#637381] absolute -top-2 left-3 bg-[#121117] px-1">
                         {field.charAt(0).toUpperCase() + field.slice(1)}
@@ -185,6 +177,7 @@ export default function UserSettings() {
                       />
                     </div>
                   ))}
+
                   <div className="col-span-1 md:col-span-2 text-right">
                     <div className="inline-block p-[2px] rounded-full bg-[linear-gradient(90deg,#281000_0%,#C0971C_25.5%,#FFE976_49.5%,#C0971C_74.5%,#281000_100%)] shadow-[0_0_17px_rgba(254,214,0,0.2)]">
                       <button
