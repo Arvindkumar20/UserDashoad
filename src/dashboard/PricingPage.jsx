@@ -1,5 +1,6 @@
 // pages/PricingPage.jsx
-import React, { useState } from "react";
+import { useState } from "react";
+
 import PricingSection from "./components/PricingSection";
 
 export default function PricingPage({clicked,setClicked}) {
@@ -7,7 +8,7 @@ export default function PricingPage({clicked,setClicked}) {
   console.log(clicked);
 
   return (
-    <div className="min-h-screen  text-white  overflow-x-scroll scrollbar-hide bg-black ">
+    <div className="min-h-screen  text-white  overflow-x-scroll hide-scrollbar bg-black">
       <PricingSection
         clicked={clicked}
         setClicked={setClicked}
