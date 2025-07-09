@@ -7,13 +7,13 @@ export default function PricingPage({clicked,setClicked}) {
   console.log(clicked);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen  text-white  overflow-x-scroll scrollbar-hide bg-black ">
       <PricingSection
         clicked={clicked}
         setClicked={setClicked}
         text={eText}
         setEText={setEText}
       />
-    </div>
-  );
+</div>
+);
 }

@@ -6,7 +6,7 @@ export default function PricingSection({ clicked, setClicked, text, setEText }) 
   const isActive = (type) => clicked === type;
 
   return (
-    <div className="w-full  py-8 sm:py-12 lg:py-16 text-white bg-black">
+    <div className="w-full overflow-x-s  py-8 sm:py-12 lg:py-16 text-white bg-black flex flex-col items-center justify-center mx-auto">
       {/* Section Title (optional) */}
      
 
