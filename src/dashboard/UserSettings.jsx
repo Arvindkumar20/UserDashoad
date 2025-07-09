@@ -98,13 +98,13 @@ export default function UserSettings() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen overflow-y-scroll hide-scrollbar">
         <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
 
         <main className="w-full px-3 sm:px-5 md:px-8 py-4">
           {/* Tabs */}
-          <div className="bg-black rounded-xl px-4 py-3 mb-6 overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-4 sm:gap-6">
+          <div className="bg-black rounded-xl px-4 py-3 mb-6">
+            <div className="flex items-center gap-4 sm:gap-2">
               {tabs.map((tab) => (
                 <button
                   key={tab.label}

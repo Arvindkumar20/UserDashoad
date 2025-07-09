@@ -8,11 +8,7 @@ export default function PricingPage({clicked,setClicked}) {
   console.log(clicked);
 
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen  text-white  overflow-x-scroll hide-scrollbar bg-black">
-=======
     <div className="min-h-screen  text-white  overflow-x-scroll hide-scrollbar bg-black ">
->>>>>>> upstream/master
       <PricingSection
         clicked={clicked}
         setClicked={setClicked}
